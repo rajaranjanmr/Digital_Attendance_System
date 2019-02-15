@@ -6,7 +6,7 @@ by just clicking on single button "status"......
 
 */
 
-
+import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -24,19 +24,19 @@ class log extends JFrame implements ActionListener
 	JPasswordField t2;
 	JButton b;
 
-	//constructor defined for loging of staffs 
+	//constructor log() is defined for loging in staffs 
 
 	log()
 	{
-		setLayout(new GridLayout(3,2));
+		getContentPane().setLayout(new GridLayout(3,2));
 		l1=new JLabel("Username:");
 		l2=new JLabel("Password:");
 		b=new JButton("Next");
 		t1=new JTextField(30);
 		t2=new JPasswordField(30);
 		
-		add(l1);
-		add(t1);
+		this.add(l1);
+		this.add(t1);
 		add(l2);
 		add(t2);
 		add(b);
@@ -47,8 +47,6 @@ class log extends JFrame implements ActionListener
 		t1.requestFocus();
 
 	}
-//	//
-	
 	
 	
 	//Method for checking validity of log input and it checks the enterd data with already
@@ -64,34 +62,34 @@ class log extends JFrame implements ActionListener
 			try
 			{
 			Class.forName("com.mysql.jdbc.Driver");
-Connection con=DriverManager.getConnection("jdbc:mysql://localhost/attendencesystem","root","");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost/attendencesystem","root","");
 			Statement st=con.createStatement();
-	String str="select * from log where username='" + t1.getText() + "' and password='" + t2.getText() +   "'";
-ResultSet rs = st.executeQuery(str);			
+			String str="select * from log where username='" + t1.getText() + "' and password='" + t2.getText() +   "'";
+			ResultSet rs = st.executeQuery(str);			
 
-if(rs.next())
-{
+	if(rs.next())
+	{
 	 
-	this.setVisible(false);
-	
-	det d= new det(t1.getText());
-	d.resize(400,400);
-	d.setVisible(true);
-}
-		else
+		this.setVisible(false);
+		det d= new det(t1.getText());
+		d.resize(400,400);
+		d.setVisible(true);
+	}
+	else
 
-		{
+	{
 		JOptionPane.showMessageDialog(null,"Wrong userid or password");
 		t2.setText("");
 		t2.requestFocus();
-		}			
+	}			
 
-			con.close();
-			}
-catch(Exception ee) {
-	ee.printStackTrace();
-	System.out.println(ee.getMessage());
-}			
+	con.close();
+	}
+	catch(Exception ee) 
+	{
+		ee.printStackTrace();
+		System.out.println(ee.getMessage());
+	}			
 			
 		}
 	}
@@ -107,28 +105,26 @@ JLabel lab;
 
 //This class is used to give description
 
-@NonNull
 
 details(String course, String dept, String sem, String date, String period, String staffid)
 {
 	
 	
 	JPanel p1= new JPanel();
-		  lab=new JLabel("ROLL NO AND THEIR PERCENTAGE");
-		  add(lab, BorderLayout.NORTH);
-
-	  add(p1);	
+	lab=new JLabel("ROLL NO AND THEIR PERCENTAGE");
+	add(lab, BorderLayout.NORTH);
+	add(p1);	
 	
-		try{
+	try{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con=DriverManager.getConnection("jdbc:mysql://localhost/attendencesystem","root","");
 			Statement st;
 			String str="select count(studid) from sheet where status='p' group by studid";
-		st=con.createStatement();
-		ResultSet rs=st.executeQuery(str);
-		ResultSetMetaData rms=rs.getMetaData();
+			st=con.createStatement();
+			ResultSet rs=st.executeQuery(str);
+			ResultSetMetaData rms=rs.getMetaData();
 
-		int n=0;
+				int n=0;
 	
 		while(rs.next())
 			n++;
@@ -148,6 +144,7 @@ details(String course, String dept, String sem, String date, String period, Stri
 		System.out.println(present[i]);
 		i++;
 		}
+		
 		System.out.println("HO");
 		
 String qry="select count(studid) from sheet group by(studid)";
@@ -212,12 +209,10 @@ add(sp,BorderLayout.CENTER);
 	
 }
 
-@NonNull
+
 	public void actionPerformed(ActionEvent ae)
 	{
 
-
-	
 	}
 }
 
@@ -314,7 +309,7 @@ class det extends JFrame implements ActionListener
 	}
 	
 	
-	@NonNull
+	
 	
 	
 	public void actionPerformed(ActionEvent ae)
@@ -350,8 +345,6 @@ Checkbox status[];
 JButton b1;
 String course, dept,sem,dt, period,staffid;
 
-
-@NonNull
 
 
 attend(String course, String dept, String sem, String date, String period, String staffid)
@@ -407,7 +400,6 @@ attend(String course, String dept, String sem, String date, String period, Strin
 	b1.addActionListener(this);
 }
 
-@NonNull
 //interface implementation
 
 public void itemStateChanged(ItemEvent ie)
@@ -415,8 +407,6 @@ public void itemStateChanged(ItemEvent ie)
 
 }
 
-
-@NonNull
 
 	public void actionPerformed(ActionEvent ae)
 	{
@@ -461,15 +451,13 @@ public class digital_attendence extends JFrame implements ActionListener
 	
 	}
 	
-	@NonNull
 	
 	public void actionPerformed(ActionEvent ae)
 	{
 	
 	}
 	
-	@NonNull
-	
+
 	public static void main(String arg[])
 	{
 		
